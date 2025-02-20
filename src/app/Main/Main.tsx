@@ -16,7 +16,9 @@ const Main = () => {
     } else {
       document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+    if(window !== undefined) {
+      localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+    }
   }, [isDarkMode]);
 
   const handClick = () => {

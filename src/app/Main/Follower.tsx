@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import upIcon from "../../../public/sources/images/icon-up.svg";
 
@@ -17,14 +16,15 @@ type prop = {
 const Follower = ({ socials }: prop) => {
 
   return (
-    <div className="relative my-6">
+    <div className="relative my-1 cursor-pointer">
       <div
-        className={`absolute w-[98%] h-4 -top-1 z-[0] left-1/2 -translate-x-1/2 rounded-full`}
+        className={`absolute w-[98%] h-4 -top-1 z-[0] left-1/2 -translate-x-1/2 rounded-full
+           `}
         style={{ background: socials.bgc }}
       ></div>
       <div
         className={`relative bg-lightTheme-cardBg p-6 z-10 rounded-md flex flex-col items-center gap-5
-        dark:bg-darkTheme-cardBg `}
+        dark:bg-darkTheme-cardBg  hover:bg-lightTheme-cardBgHv dark:hover:bg-darkTheme-cardBgHv `}
       >
         <section className="flex items-center justify-center gap-2">
           <Image

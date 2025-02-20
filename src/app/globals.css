@@ -5,6 +5,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  transition: background-color 10s ease-out, color 10s ease-in-out;
+  /* transition: background-color 0.3s ease, color 0.3s ease; */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,4 +20,9 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.colo{
+  background: hsl(230, 74%, 92%);
 }

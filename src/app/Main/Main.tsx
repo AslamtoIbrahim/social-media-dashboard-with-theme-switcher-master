@@ -24,25 +24,27 @@ const Main = () => {
   };
   return (
     <div
-      className="px-4 py-8 font-inter flex flex-col gap-4  dark:bg-darkTheme-bg 
-     "
+      className="px-4 py-8 md:py-10 lg:py-16 md:px-5 lg:px-16 xl:px-32 2xl:px-36 font-inter flex flex-col gap-4  dark:bg-darkTheme-bg 
+     xl:h-screen"
     >
-      <section>
-        <h1 className="text-2xl font-semibold text-lightTheme-darkText dark:text-darkTheme-whiteText">
-          Social Media Dashboard
-        </h1>
-        <p className="text-base font-semibold text-lightTheme-text dark:text-darkTheme-text">
-          Total Followers: 23,004
-        </p>
+      <section className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <section>
+          <h1 className="text-2xl xl:text-3xl font-semibold text-lightTheme-darkText dark:text-darkTheme-whiteText">
+            Social Media Dashboard
+          </h1>
+          <p className="text-base xl:text-xl font-semibold text-lightTheme-text dark:text-darkTheme-text">
+            Total Followers: 23,004
+          </p>
+        </section>
+        <hr className="border-lightTheme-text/70 dark:border-darkTheme-text/50 lg:hidden " />
+        <section className="flex  items-center justify-between lg:justify-end lg:gap-4">
+          <p className="text-base xl:text-xl font-semibold text-lightTheme-text dark:text-darkTheme-text">
+            Dark Mode
+          </p>
+          <Switch onClick={handClick} isOn={isDarkMode} />
+        </section>
       </section>
-      <hr className="border-lightTheme-text/70 dark:border-darkTheme-text/50 " />
-      <section className="flex  items-center justify-between">
-        <p className="text-base font-semibold text-lightTheme-text dark:text-darkTheme-text">
-          Dark Mode
-        </p>
-        <Switch onClick={handClick} isOn={isDarkMode} />
-      </section>
-      <section className="mt-6">
+      <section className="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
         {
           socialStats.map((item, index) =>{
             return (
@@ -52,17 +54,18 @@ const Main = () => {
         }
       </section>
       <section className="mt-2">
-        <h1 className="text-lightTheme-text text-xl font-semibold  dark:text-darkTheme-whiteText py-6">
+        <h1 className="text-lightTheme-text text-xl xl:text-2xl font-semibold  dark:text-darkTheme-whiteText py-6">
           Overview - Today
         </h1>
-        {/* <Overview view={stats[0]} /> */}
-        {
-          stats.map((item, index) =>{
-            return (
-              <Overview key={index} view={item} />
-            )
-          })
-        }
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+          {
+            stats.map((item, index) =>{
+              return (
+                <Overview key={index} view={item} />
+              )
+            })
+          }
+        </div>
       </section>
     </div>
   );

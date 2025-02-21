@@ -14,7 +14,6 @@ type prop = {
   socials: social;
 };
 const Follower = ({ socials }: prop) => {
-
   return (
     <div className="relative my-1 cursor-pointer">
       <div
@@ -28,6 +27,7 @@ const Follower = ({ socials }: prop) => {
       >
         <section className="flex items-center justify-center gap-2">
           <Image
+            className="h-auto"
             src={socials.icon}
             alt={socials.username}
             width={20}

@@ -6,34 +6,35 @@ import { socialStats, stats } from "../data";
 import Overview from "./Overview";
 
 const Main = () => {
-  const [isDarkMode, setisDarkMode] = useState(() => {
-    return localStorage.getItem("darkMode") === "true";
-  });
-  // const [isDarkMode, setisDarkMode] = useState(false);
-  
+  const [isDarkMode, setIsDarkMode] = useState(false); // Default to false  
+  const [isMounted, setIsMounted] = useState(false); // Track if component has mounted  
 
-  // useEffect(() => {
-  //   setisDarkMode(localStorage.getItem("darkMode") === "true");
-  // }, []);
+  useEffect(() => {  
+    // Check localStorage only after the component mounts  
+    const darkModePreference = localStorage.getItem("darkMode") === "true";  
+    setIsDarkMode(darkModePreference);  
+    setIsMounted(true); // Set mounted to true  
+  }, []);  
 
-  useEffect(() => {
+  useEffect(() => {  
+    if (isMounted) { // Only update the class if the component has mounted  
+      if (isDarkMode) {  
+        document.documentElement.classList.add("dark");  
+      } else {  
+        document.documentElement.classList.remove("dark");  
+      }  
 
-    const theme = localStorage.getItem("darkMode");
-    console.log('theme: ',theme);
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+      // Update localStorage only after the component has mounted  
+      localStorage.setItem("darkMode", JSON.stringify(isDarkMode));  
+    }  
+  }, [isDarkMode, isMounted]);  
 
-    localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+  const handleClick = () => {  
+    setIsDarkMode((prev) => !prev);  
+  };  
 
-  }, [isDarkMode]);
-
-  const handClick = () => {
-    setisDarkMode(!isDarkMode);
-  };
-
+  // Render nothing until mounted to avoid flickering  
+  if (!isMounted) return null;
   return (
     <div
       className="px-4 py-8 md:py-14 lg:py-16 md:px-10 lg:px-16 xl:px-32 2xl:px-36 font-inter flex flex-col gap-4  dark:bg-darkTheme-bg 
@@ -53,7 +54,7 @@ const Main = () => {
           <p className="text-base xl:text-xl font-semibold text-lightTheme-text dark:text-darkTheme-text">
             Dark Mode
           </p>
-          <Switch onClick={handClick} isOn={isDarkMode} />
+          <Switch onClick={handleClick} isOn={isDarkMode} />
         </section>
       </section>
       <section className="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4">

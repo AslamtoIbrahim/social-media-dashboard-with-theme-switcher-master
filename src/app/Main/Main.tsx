@@ -7,27 +7,37 @@ import Overview from "./Overview";
 
 const Main = () => {
   const [isDarkMode, setisDarkMode] = useState(() => {
-    return localStorage.getItem("darkMode") === "true"; // Default to false if localStorage is not supported or not set.
+    return localStorage.getItem("darkMode") === "true";
   });
+  // const [isDarkMode, setisDarkMode] = useState(false);
+  
+
+  // useEffect(() => {
+  //   setisDarkMode(localStorage.getItem("darkMode") === "true");
+  // }, []);
 
   useEffect(() => {
+
+    const theme = localStorage.getItem("darkMode");
+    console.log('theme: ',theme);
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-    if(window !== undefined) {
-      localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
-    }
+
+    localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+
   }, [isDarkMode]);
 
   const handClick = () => {
     setisDarkMode(!isDarkMode);
   };
+
   return (
     <div
-      className="px-4 py-8 md:py-10 lg:py-16 md:px-5 lg:px-16 xl:px-32 2xl:px-36 font-inter flex flex-col gap-4  dark:bg-darkTheme-bg 
-     xl:h-screen"
+      className="px-4 py-8 md:py-14 lg:py-16 md:px-10 lg:px-16 xl:px-32 2xl:px-36 font-inter flex flex-col gap-4  dark:bg-darkTheme-bg 
+     xl:h-screen transition-colors duration-300 ease-in-out"
     >
       <section className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <section>
@@ -47,26 +57,18 @@ const Main = () => {
         </section>
       </section>
       <section className="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-        {
-          socialStats.map((item, index) =>{
-            return (
-              <Follower key={index} socials={item} />
-            )
-          })
-        }
+        {socialStats.map((item, index) => {
+          return <Follower key={index} socials={item} />;
+        })}
       </section>
       <section className="mt-2">
         <h1 className="text-lightTheme-text text-xl xl:text-2xl font-semibold  dark:text-darkTheme-whiteText py-6">
           Overview - Today
         </h1>
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-          {
-            stats.map((item, index) =>{
-              return (
-                <Overview key={index} view={item} />
-              )
-            })
-          }
+          {stats.map((item, index) => {
+            return <Overview key={index} view={item} />;
+          })}
         </div>
       </section>
     </div>
